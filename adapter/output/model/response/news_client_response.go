@@ -1,20 +1,12 @@
-package domain
+package response
 
-import "time"
-
-type NewsReqDomain struct {
-	Subject string
-  From time.Time
-}
-
-type NewsDomain struct {
+type NewsClientResponse struct {
 	Status string
 	TotalResults string
-	Articles []Article
+	Articles []ArticleResponse
 }
 
-
-type Article struct {
+type ArticleResponse struct {
 	Source string
 	Id string
 	Name string

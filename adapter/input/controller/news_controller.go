@@ -2,6 +2,7 @@ package controller
 
 import (
 	"github.com/HunCoding/golang-architecture/hexagonal-news-api/adapter/input/model/request"
+	"github.com/Ingrid-Paulino/Projeto-real-hexagonal-com-go/application/domain"
 	"github.com/Ingrid-Paulino/Projeto-real-hexagonal-com-go/application/port/input"
 	"github.com/Ingrid-Paulino/Projeto-real-hexagonal-com-go/configuration/logger"
 	"github.com/Ingrid-Paulino/Projeto-real-hexagonal-com-go/configuration/validation"
@@ -17,8 +18,6 @@ func NewNewsController(newsUseCase input.NewsUseCase) *newsController {
 }
 
 func (nc *newsController) GetNews(c *gin.Context)  { // Vai receber a requisição
-	//q=tesla&from=2023-09-15&apiKey=5d71edc32a3a4113a7248e9da361ed48
-
 
 	logger.Info("Init GetNews controller api")
 	newsRequest := request.NewsRequest{}
@@ -30,5 +29,7 @@ func (nc *newsController) GetNews(c *gin.Context)  { // Vai receber a requisiç�
 		return
 	}
 
-	_, _ = nc.newsUseCase.GetNewService(newsRequest.Subject, newsRequest.From)
+	newsDomain := domain.NewsReqDomain{Subject: newsRequest.Subject, From: newsRequest.From}
+
+	_, _ = nc.newsUseCase.GetNewService(newsDomain)
 }
